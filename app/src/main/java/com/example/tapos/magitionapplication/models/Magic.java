@@ -1,10 +1,12 @@
 package com.example.tapos.magitionapplication.models;
 
+import java.io.Serializable;
+
 /**
  * Created by tapos on 1/26/18.
  */
 
-public class Magic {
+public class Magic implements Serializable {
     private long id;
     private String title;
     private String description;

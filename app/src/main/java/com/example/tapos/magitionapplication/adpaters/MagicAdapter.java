@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.tapos.magitionapplication.MainActivity;
 import com.example.tapos.magitionapplication.R;
 
 import com.example.tapos.magitionapplication.models.Magic;
@@ -21,12 +22,18 @@ public class MagicAdapter extends RecyclerView.Adapter<MagicAdapter.MyViewHolder
     private Context mContext;
     private List<Magic> magicList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView title ;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            ((MainActivity)mContext).showDetails(magicList.get(getAdapterPosition()));
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.tapos.magitionapplication;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.support.design.widget.AppBarLayout;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tapos.magitionapplication.adpaters.DetailActivity;
 import com.example.tapos.magitionapplication.adpaters.MagicAdapter;
 import com.example.tapos.magitionapplication.database.MagicOperations;
 import com.example.tapos.magitionapplication.models.Magic;
@@ -105,6 +107,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
+    }
+
+    public void showDetails(Magic magic) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("magic", magic);
+        startActivity(intent);
     }
 
     /**
