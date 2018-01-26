@@ -20,9 +20,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.tapos.magitionapplication.adpaters.MagicAdapter;
+import com.example.tapos.magitionapplication.database.MagicOperations;
 import com.example.tapos.magitionapplication.models.Magic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MagicAdapter adapter;
     private List<Magic> magicList;
+    private MagicOperations magicOps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +40,12 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initCollapsingToolbar();
-
+        magicOps = new MagicOperations(MainActivity.this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 
 
-        prepareAlbums();
+        prepareMagics();
 
         try {
             Glide.with(this).load(R.drawable.magic_cover).into((ImageView) findViewById(R.id.backdrop));
@@ -89,10 +90,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Adding few albums for testing
      */
-    private void prepareAlbums() {
-        
+    private void prepareMagics() {
 
-        this.magicList = magicList;
+
+        magicOps.open();
+        this.magicList = magicOps.getAllMagic();
+        magicOps.close();
         adapter = new MagicAdapter(this, magicList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
@@ -170,5 +173,18 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "add menu click", Toast.LENGTH_LONG).show();
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        magicOps.open();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        magicOps.close();
+
     }
 }

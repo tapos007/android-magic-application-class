@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.tapos.magitionapplication.R;
+
 import com.example.tapos.magitionapplication.models.Magic;
 
 import java.util.List;
